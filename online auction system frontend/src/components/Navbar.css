@@ -1,0 +1,83 @@
+.custom-navbar{
+
+    background:#212529;
+
+    padding:15px 0;
+
+    box-shadow:0 5px 15px rgba(0,0,0,.2);
+
+    position:sticky;
+
+    top:0;
+
+    z-index:1000;
+
+}
+
+.logo{
+
+    color:white !important;
+
+    font-size:35px;
+
+    font-weight:700;
+
+    text-decoration:none;
+
+}
+
+.nav-link{
+
+    color:#dcdcdc !important;
+
+    font-size:18px;
+
+    margin-left:18px;
+
+    transition:.3s;
+
+    position:relative;
+
+}
+
+.nav-link:hover{
+
+    color:#00d084 !important;
+
+}
+
+.nav-link::after{
+
+    content:"";
+
+    position:absolute;
+
+    left:0;
+
+    bottom:-6px;
+
+    width:0;
+
+    height:2px;
+
+    background:#00d084;
+
+    transition:.3s;
+
+}
+
+.nav-link:hover::after{
+
+    width:100%;
+
+}
+
+.btn-success{
+
+    border-radius:8px;
+
+    padding:10px 20px;
+
+    font-weight:600;
+
+}

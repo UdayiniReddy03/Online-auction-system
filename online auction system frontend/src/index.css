@@ -1,0 +1,227 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html,
+body,
+#root{
+    height:100%;
+}
+
+body{
+
+    font-family:'Segoe UI',sans-serif;
+
+    background:linear-gradient(135deg,#eef2f7,#dbe6f6);
+
+}
+
+.app{
+
+    min-height:100vh;
+
+    display:flex;
+
+    flex-direction:column;
+
+}
+
+.main-content{
+
+    flex:1;
+
+    padding:40px 0;
+
+}
+
+.container{
+
+    width:90%;
+
+    max-width:1200px;
+
+    margin:auto;
+
+}
+
+.card{
+
+    background:white;
+
+    border-radius:18px;
+
+    box-shadow:0 10px 30px rgba(0,0,0,.15);
+
+    border:none;
+
+}
+
+.card-body{
+
+    padding:35px;
+
+}
+
+.form-control{
+
+    border-radius:10px;
+
+    height:50px;
+
+    font-size:17px;
+
+}
+
+textarea.form-control{
+
+    height:130px;
+
+}
+
+.btn{
+
+    border-radius:10px;
+
+    font-weight:bold;
+
+    transition:.3s;
+
+}
+
+.btn-success{
+
+    background:#198754;
+
+    border:none;
+
+}
+
+.btn-success:hover{
+
+    background:#157347;
+
+    transform:translateY(-2px);
+
+}
+
+.auth-page{
+
+    min-height:85vh;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    padding:30px;
+
+}
+
+.auth-card{
+
+    width:100%;
+
+    max-width:620px;
+
+    border-radius:22px;
+
+    border:none;
+
+    overflow:hidden;
+
+    box-shadow:0 15px 35px rgba(0,0,0,.15);
+
+}
+
+.auth-card .card-body{
+
+    padding:45px;
+
+}
+
+.auth-card h1{
+
+    font-weight:700;
+
+    color:#212529;
+
+    margin-bottom:35px;
+
+}
+
+.auth-card .form-control{
+
+    height:55px;
+
+    border-radius:10px;
+
+    font-size:17px;
+
+}
+
+.auth-card .btn{
+
+    height:52px;
+
+    font-size:18px;
+
+    border-radius:10px;
+
+    font-weight:600;
+
+}
+
+.auth-card hr{
+
+    margin:30px 0 20px;
+
+}
+
+.auth-card p{
+
+    margin:0;
+
+    font-size:16px;
+
+}
+
+.product-card{
+
+    transition:.3s;
+
+    overflow:hidden;
+
+}
+
+.product-card:hover{
+
+    transform:translateY(-8px);
+
+}
+
+.product-image{
+
+    height:230px;
+
+    width:100%;
+
+    object-fit:cover;
+
+}
+
+.page-title{
+
+    text-align:center;
+
+    font-size:40px;
+
+    margin-bottom:35px;
+
+    font-weight:bold;
+
+    color:#222;
+
+}

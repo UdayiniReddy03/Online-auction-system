@@ -1,0 +1,53 @@
+.footer{
+
+    background:#212529;
+
+    color:white;
+
+    padding:35px 0 15px;
+
+    margin-top:auto;
+
+}
+
+.footer h4{
+
+    font-weight:700;
+
+    margin-bottom:12px;
+
+}
+
+.footer h5{
+
+    margin-bottom:15px;
+
+    color:#00d084;
+
+}
+
+.footer p{
+
+    margin:6px 0;
+
+    color:#d6d6d6;
+
+}
+
+.footer hr{
+
+    border-color:#555;
+
+    margin:25px 0 15px;
+
+}
+
+.copyright{
+
+    text-align:center;
+
+    font-size:15px;
+
+    color:#bdbdbd;
+
+}
