@@ -1,97 +1,116 @@
-import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { useParams, useNavigate } from "react-router-dom";
 import api from "../services/api";
 
 function ProductDetails() {
+  const { id } = useParams();
+  const navigate = useNavigate();
 
-    const { id } = useParams();
+  const [product, setProduct] = useState(null);
+  const [bidAmount, setBidAmount] = useState("");
 
-    const [product, setProduct] = useState({});
-    const [bidAmount, setBidAmount] = useState("");
+  useEffect(() => {
+    fetchProduct();
+  }, []);
 
-    useEffect(() => {
-        fetchProduct();
-    }, []);
+  const fetchProduct = async () => {
+    try {
+      const response = await api.get(`/products/${id}`);
+      setProduct(response.data);
+    } catch (error) {
+      console.error(error);
+      alert("Unable to load product.");
+    }
+  };
 
-    const fetchProduct = async () => {
-        const response = await api.get("/products/" + id);
-        setProduct(response.data);
-    };
+  const placeBid = async () => {
+    // Check whether the user is logged in
+    const loggedIn = localStorage.getItem("loggedIn");
 
-    const placeBid = async () => {
+    if (!loggedIn) {
+      alert("Please login to place a bid.");
+      navigate("/login");
+      return;
+    }
 
-        if (bidAmount === "") {
-            alert("Enter Bid Amount");
-            return;
-        }
+    if (!bidAmount || Number(bidAmount) <= 0) {
+      alert("Enter a valid bid amount.");
+      return;
+    }
 
-        const bid = {
-            bidAmount: Number(bidAmount),
-            userId: 1,
-            productId: Number(product.id)
-        };
+    try {
+      const bid = {
+        bidAmount: Number(bidAmount),
+        userId: 1, // Replace with actual logged-in user ID later
+        productId: Number(product.id),
+      };
 
-        console.log(bid);
+      console.log("Sending Bid:", bid);
 
-        try {console.log("Sending Bid:");
-            console.log(JSON.stringify(bid, null, 2));
-            const response = await api.post("/bids", bid);
+      const response = await api.post("/bids", bid);
 
-            alert(response.data);
+      alert(response.data);
 
-            setBidAmount("");
+      setBidAmount("");
 
-            fetchProduct();
+      fetchProduct();
+    } catch (error) {
+      console.error(error);
 
-        } catch (error) {
+      alert(
+        error.response?.data ||
+          error.response?.data?.message ||
+          "Unable to place bid."
+      );
+    }
+  };
 
-            console.log(error.response);
-
-            alert(
-                error.response?.data?.message ||
-                JSON.stringify(error.response?.data)
-            );
-        }
-    };
-
+  if (!product) {
     return (
+      <div className="container mt-5 text-center">
+        <h3>Loading...</h3>
+      </div>
+    );
+  }
 
-        <div className="container mt-5">
+  return (
+    <div className="container mt-5">
+      <div className="card shadow p-4">
 
-            <div className="card shadow">
+        <h2>{product.name}</h2>
 
-                <div className="card-body">
+        <p>
+          <strong>Description:</strong> {product.description}
+        </p>
 
-                    <h2>{product.productName}</h2>
+        <p>
+          <strong>Current Price:</strong> ₹{product.currentPrice}
+        </p>
 
-                    <p>{product.description}</p>
+        <p>
+          <strong>Seller:</strong> {product.seller}
+        </p>
 
-                    <h3>
-                        Current Price : ₹ {product.currentPrice}
-                    </h3>
+        <div className="mt-4">
+          <input
+            type="number"
+            className="form-control"
+            placeholder="Enter your bid amount"
+            value={bidAmount}
+            onChange={(e) => setBidAmount(e.target.value)}
+          />
 
-                    <input
-                        type="number"
-                        className="form-control mt-3"
-                        placeholder="Enter Bid Amount"
-                        value={bidAmount}
-                        onChange={(e) => setBidAmount(e.target.value)}
-                    />
-
-                    <button
-                        className="btn btn-success mt-3"
-                        onClick={placeBid}
-                    >
-                        Place Bid
-                    </button>
-
-                </div>
-
-            </div>
-
+          <button
+            className="btn btn-success mt-3"
+            onClick={placeBid}
+          >
+            Place Bid
+          </button>
         </div>
 
-    );
+      </div>
+    </div>
+  );
 }
 
 export default ProductDetails;
