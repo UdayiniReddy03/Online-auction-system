@@ -62,6 +62,15 @@ cd "online auction system frontend"
 npm install
 npm run dev
 ```
+## Database Setup
+
+Create the database:
+
+```sql
+CREATE DATABASE auction_db;
+```
+
+Update `application.properties` with your own MySQL username and password before running the backend.
 
 ## 👩‍💻 Developed By
 
