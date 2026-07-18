@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.java.online.auction.system.dto.LoginRequest;
+import com.java.online.auction.system.dto.LoginResponse;
 import com.java.online.auction.system.dto.RegisterRequest;
 import com.java.online.auction.system.entity.User;
 import com.java.online.auction.system.repository.UserRepository;
@@ -36,16 +37,28 @@ public class UserService {
         return "User Registered Successfully";
     }
 
-    public String loginUser(LoginRequest request) {
+    public LoginResponse loginUser(LoginRequest request) {
 
         Optional<User> user = userRepository.findByEmail(request.getEmail());
 
         if (user.isPresent()
                 && user.get().getPassword().equals(request.getPassword())) {
 
-            return "Login Successful";
+            User u = user.get();
+
+            return new LoginResponse(
+                    "Login Successful",
+                    u.getId(),
+                    u.getName(),
+                    u.getEmail()
+            );
         }
 
-        return "Invalid Email or Password";
+        return new LoginResponse(
+                "Invalid Email or Password",
+                null,
+                null,
+                null
+        );
     }
 }

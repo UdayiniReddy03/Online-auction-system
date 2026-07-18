@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.java.online.auction.system.dto.LoginRequest;
+import com.java.online.auction.system.dto.LoginResponse;
 import com.java.online.auction.system.dto.RegisterRequest;
 import com.java.online.auction.system.service.UserService;
 
@@ -25,7 +26,7 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public String loginUser(@RequestBody LoginRequest request) {
+    public LoginResponse loginUser(@RequestBody LoginRequest request) {
         return userService.loginUser(request);
     }
 }

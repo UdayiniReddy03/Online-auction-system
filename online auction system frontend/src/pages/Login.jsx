@@ -27,24 +27,22 @@ function Login() {
         try {
 
             const response = await api.post("/users/login", user);
+            if (response.data.message === "Login Successful") {
 
-            if (response.data === "Login Successful") {
+    localStorage.setItem("loggedIn", "true");
+    localStorage.setItem("userId", response.data.id);
+    localStorage.setItem("userEmail", response.data.email);
 
-                localStorage.setItem("loggedIn", "true");
-                localStorage.setItem("userEmail", user.email);
+    alert("Login Successful");
 
-                alert("Login Successful");
+    navigate("/dashboard");
+    window.location.reload();
 
-                navigate("/dashboard");
+} else {
 
-                window.location.reload();
+    alert(response.data.message);
 
-            } else {
-
-                alert(response.data);
-
-            }
-
+} 
         } catch (error) {
 
             console.log(error);

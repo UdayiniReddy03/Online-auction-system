@@ -1,6 +1,7 @@
 package com.java.online.auction.system.service;
 
 import java.time.LocalDateTime;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -39,12 +40,41 @@ public class BidService {
             return "User Not Found";
         }
 
+        // Check if auction has ended
+        if (LocalDateTime.now().isAfter(product.getEndTime())) {
+
+            // If winner is not already decided
+            if (product.getWinnerId() == null) {
+
+                Optional<Bid> highestBid =
+                        bidRepository.findTopByProductIdOrderByBidAmountDesc(product.getId());
+
+                if (highestBid.isPresent()) {
+
+                    Bid winnerBid = highestBid.get();
+
+                    product.setWinnerId(winnerBid.getUser().getId());
+                    product.setCurrentPrice(winnerBid.getBidAmount());
+                    product.setStatus("SOLD");
+
+                    productRepository.save(product);
+                }
+            }
+
+            return "Auction Closed";
+        }
+
+        // Product already sold
+        if ("SOLD".equalsIgnoreCase(product.getStatus())) {
+            return "Auction Closed";
+        }
+
+        // Bid must be greater
         if (request.getBidAmount() <= product.getCurrentPrice()) {
             return "Bid must be greater than current price";
         }
 
         product.setCurrentPrice(request.getBidAmount());
-
         productRepository.save(product);
 
         Bid bid = new Bid();

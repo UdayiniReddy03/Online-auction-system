@@ -32,7 +32,11 @@ public class Product {
 
     private LocalDateTime endTime;
 
+    // ACTIVE, SOLD
     private String status;
+
+    // Stores the winning user's ID
+    private Long winnerId;
 
     public Product() {
     }
@@ -40,7 +44,7 @@ public class Product {
     public Product(Long id, String productName, String description,
                    double startingPrice, double currentPrice,
                    String imageUrl, LocalDateTime startTime,
-                   LocalDateTime endTime, String status) {
+                   LocalDateTime endTime, String status, Long winnerId) {
         this.id = id;
         this.productName = productName;
         this.description = description;
@@ -50,6 +54,7 @@ public class Product {
         this.startTime = startTime;
         this.endTime = endTime;
         this.status = status;
+        this.winnerId = winnerId;
     }
 
     public Long getId() {
@@ -122,5 +127,13 @@ public class Product {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public Long getWinnerId() {
+        return winnerId;
+    }
+
+    public void setWinnerId(Long winnerId) {
+        this.winnerId = winnerId;
     }
 }
